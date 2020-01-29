@@ -212,3 +212,44 @@ def quick_sort(nums):  # n^2
             _quick_sort(items, split_index + 1, high)
 
     _quick_sort(nums, 0, nums.get_len() - 1)
+
+
+
+#My contribution is Shell Sort
+#Wikipedia:
+    #Shellsort, also known as Shell sort or Shell's method, is an in-place comparison sort.
+    #It can be seen as either a generalization of sorting by exchange (bubble sort) or sorting by insertion (insertion sort).
+    #The method starts by sorting pairs of elements far apart from each other, then progressively reducing the gap between elements to be compared.
+
+    
+def shell_sort(nums): 
+  
+    #The question of deciding which gap sequence to use is difficult.
+    #Every gap sequence that contains 1 yields a correct sort (as this makes the final pass an ordinary insertion sort);
+    #however, the properties of thus obtained versions of Shellsort may be very different.
+    #Too few gaps slows down the passes, and too many gaps produces an overhead.
+    n = nums.get_len() 
+    gap = n // 2
+  
+    # Do a gapped insertion sort for this gap size. 
+    # The first gap elements a[0..gap-1] are already in gapped  
+    # order keep adding one more element until the entire array 
+    # is gap sorted 
+    while gap > 0: 
+  
+        for i in range(gap,n): 
+  
+            # add a[i] to the elements that have been gap sorted 
+            # save a[i] in temp and make a hole at position i 
+            temp = nums.values[i] 
+  
+            # shift earlier gap-sorted elements up until the correct 
+            # location for a[i] is found 
+            j = i 
+            while  j >= gap and nums.values[j-gap] > temp: 
+                nums.set(j, nums.values[j-gap])  
+                j -= gap 
+  
+            # put temp (the original a[i]) in its correct location 
+            nums.set(j, temp) 
+        gap //= 2
